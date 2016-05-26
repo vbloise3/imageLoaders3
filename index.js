@@ -24,6 +24,19 @@ exports.handler = function(event, context, callback) {
     var srcKey    = event.Records[0].s3.object.key;
     var dstBucket = srcBucket;
     var dstKey    = "thumbs/" + srcKey;
+    var typeMatch = srcKey.match(/\.([^.]*)$/);
+
+    if (!typeMatch) {
+        console.error('unable to infer image type for key ' + srcKey);
+        return;
+    }
+
+    var imageType = typeMatch[1].toLowerCase();
+    if (imageType != "jpg" && imageType != "gif" && imageType != "png" &&
+        imageType != "eps") {
+        console.log('skipping non-image ' + srcKey);
+        return;
+    }
 
     // Download the image from S3, transform, upload to a different S3 bucket
     // and write the metadata to DynamoDB
@@ -60,6 +73,7 @@ exports.handler = function(event, context, callback) {
                     var width  = scalingFactor * size.width;
                     var height = scalingFactor * size.height;
 
+                    console.log("About to resize the image\n");
                     // Transform the image buffer in memory.
                     this.resize(width, height)
                         .toBuffer(imageType, function(err, buffer) {
@@ -73,6 +87,7 @@ exports.handler = function(event, context, callback) {
             },
             function uploadThumbnail(contentType, metadata, data, next) {
                 // Stream the transformed image to a different S3 bucket.
+                console.log("Image was resized\n");
                 s3.putObject({
                     Bucket: dstBucket,
                     Key: dstKey,
