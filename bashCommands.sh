@@ -25,7 +25,7 @@ zip -9 -r ../createThumbnailAndStoreInDB-v1.0.zip *
     {
         "Effect": "Allow",
         "Action": [
-            ""s3"PutObject"
+            "s3:PutObject"
         ],
         "Resource": [
             "arn:aws:s3:::imageload-vbloise/thumbs/*"
