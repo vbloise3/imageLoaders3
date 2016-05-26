@@ -42,3 +42,6 @@ zip -9 -r ../createThumbnailAndStoreInDB-v1.0.zip *
     }
     ]
 }
+
+## upload a picture to the s3 bucket
+aws s3 cp ~/Pictures/MarinandHeather.jpg s3://imageload-vbloise/images/
