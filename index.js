@@ -18,7 +18,7 @@ var s3 = new AWS.S3();
 var dynamodb = new AWS.DynamoDB();
 
 exports.handler = function(event, context, callback) {
-    // Read options from the event.
+    // Read options from the event
     console.log("Reading options from event:\n", util.inspect(event, {depth: 5}));
     var srcBucket = event.Records[0].s3.bucket.name;
     var srcKey    = event.Records[0].s3.object.key;
