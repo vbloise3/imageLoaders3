@@ -47,4 +47,7 @@ zip -9 -r ../createThumbnailAndStoreInDB-v1.0.zip *
 aws s3 cp ~/Pictures/MarinandHeather.jpg s3://imageload-vbloise/images/
 
 ##list the thumbnails
-aws s3 ls  s3://imageload-vbloise/thumbs/
+aws s3 ls s3://imageload-vbloise/thumbs/
+
+## add custom metadata
+aws s3 cp ~/Pictures/MarinandHeather.jpg s3://imageload-vbloise/images/ --metadata '{"author": "Vince Bloise", "title": "Marin and Heather", "description": "Marin and Heather at 2015 Easterns", "width": "100", "height": "100"}'
