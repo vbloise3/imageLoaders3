@@ -13,7 +13,7 @@ var DEFAULT_MAX_WIDTH  = 200;
 var DEFAULT_MAX_HEIGHT = 200;
 var DDB_TABLE = 'images';
 
-// get reference to AWS services client
+// get reference to AWS services client.
 var s3 = new AWS.S3();
 var dynamodb = new AWS.DynamoDB();
 
